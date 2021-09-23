@@ -19,7 +19,7 @@ public class RabbitMqConfig {
     @Value("sampleQueue")
     String queueName;
 
-    @Value("sampleRoutingKey")
+    @Value("sample.routingKey")
     String routingKey;
 
     @Bean

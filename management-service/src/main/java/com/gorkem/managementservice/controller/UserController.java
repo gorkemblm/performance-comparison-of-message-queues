@@ -25,8 +25,8 @@ public class UserController {
         try {
             User user = this.userService.convertForAddToRabbitMqQueue(userDto);
 
-            var result = restTemplate.patchForObject(
-                    "localhost:8086/v1/rabbitmq/add-to-queue",
+            var result = restTemplate.postForObject(
+                    "http://localhost:8086/v1/rabbitmq/add-to-queue",
                     user,
                     User.class
             );
