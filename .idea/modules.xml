@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/kafka-service/kafka-service.iml" filepath="$PROJECT_DIR$/kafka-service/kafka-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/management-service/management-service.iml" filepath="$PROJECT_DIR$/management-service/management-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/performance-comparison-of-message-queues.iml" filepath="$PROJECT_DIR$/.idea/performance-comparison-of-message-queues.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rabbitmq-service/rabbitmq-service.iml" filepath="$PROJECT_DIR$/rabbitmq-service/rabbitmq-service.iml" />
+    </modules>
+  </component>
+</project>
