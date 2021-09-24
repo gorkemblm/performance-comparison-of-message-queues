@@ -25,7 +25,7 @@ public class KafkaConsumer {
     }*/
 
     //1 TOPIC 4 PARTITION 4 CONSUMER SCENARIO -> {1 TO 1 CONNECTION}
-    @KafkaListener(autoStartup = "true", topics = "sync-one-topic-four-partition", groupId = "scenario-2")
+    /*@KafkaListener(autoStartup = "true", topics = "sync-one-topic-four-partition", groupId = "scenario-2")
     public void recievedMessageFromMultiplePartitionListener1(String message) {
         try {
             log.info("General Count : {}.  Personal Count : {}. CONSUMER : {}. Received Message From Stream: {}.", generalCount, consumerOneCount, "C1", message);
@@ -63,6 +63,40 @@ public class KafkaConsumer {
         try {
             log.info("General Count : {}.  Personal Count : {}. CONSUMER : {}. Received Message From Stream: {}.", generalCount, consumerFourCount, "C4", message);
             consumerFourCount++;
+            generalCount++;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }*/
+
+    //SYNC 1 TOPIC 3 PARTITION 3 CONSUMER SCENARIO -> {1 TO 1 CONNECTION}
+    @KafkaListener(autoStartup = "true", topics = "sync-one-topic-three-partition", groupId = "scenario-3")
+    public void recievedMessageFromMultiplePartitionListener1(String message) {
+        try {
+            log.info("General Count : {}.  Personal Count : {}. CONSUMER : {}. Received Message From Stream: {}.", generalCount, consumerOneCount, "C1", message);
+            consumerOneCount++;
+            generalCount++;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @KafkaListener(autoStartup = "true", topics = "sync-one-topic-three-partition", groupId = "scenario-3")
+    public void recievedMessageFromMultiplePartitionListener2(String message) {
+        try {
+            log.info("General Count : {}.  Personal Count : {}. CONSUMER : {}. Received Message From Stream: {}.", generalCount, consumerTwoCount, "C2", message);
+            consumerTwoCount++;
+            generalCount++;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @KafkaListener(autoStartup = "true", topics = "sync-one-topic-three-partition", groupId = "scenario-3")
+    public void recievedMessageFromMultiplePartitionListener3(String message) {
+        try {
+            log.info("General Count : {}.  Personal Count : {}. CONSUMER : {}. Received Message From Stream: {}.", generalCount, consumerThreeCount, "C3", message);
+            consumerThreeCount++;
             generalCount++;
         } catch (Exception e) {
             log.error(e.getMessage());
