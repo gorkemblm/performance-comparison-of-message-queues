@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaService {
 
+    private String[] topicNames = {"sync-one-topic-one-partition", "sync-one-topic-four-partition"};
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
@@ -17,7 +18,7 @@ public class KafkaService {
     @Async
     public void writeToKafkaStream(User user) {
         for (int i = 0 ; i < 750 ; i++) {
-            kafkaTemplate.send("sync-one-topic-one-partition", user.toString());
+            kafkaTemplate.send(topicNames[1], user.toString());
         }
     }
 }
