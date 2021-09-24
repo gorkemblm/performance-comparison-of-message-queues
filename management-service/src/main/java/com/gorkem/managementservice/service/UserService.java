@@ -11,4 +11,13 @@ public class UserService {
     public User convertForAddToRabbitMqQueue(UserDto userDto) {
         return UserConverter.convertToEntity(userDto);
     }
+
+    public String findThePortNumber(String queueType) {
+        if (queueType.equals("kafka")) {
+            return "8087";
+        } else if (queueType.equals("rabbitmq")) {
+            return "8086";
+        }
+        return null;
+    }
 }
