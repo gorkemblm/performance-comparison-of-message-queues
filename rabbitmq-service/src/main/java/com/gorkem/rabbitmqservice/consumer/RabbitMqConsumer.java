@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class RabbitMqConsumer {
-
     public static long count = 1;
 
-    //@Async
+    @Async
     @RabbitListener(queues = "sampleQueue", autoStartup = "true")
     public void recievedMessage(User user) {
         try {
-            log.info("GENERAL COUNT : {}. RECEIVER THREAD : {}. Received Message From sampleQueue : {}.", count, Thread.currentThread().getName(), user);
+            log.info("GENERAL COUNT : {} RECEIVER THREAD : {} Received Message From Queue : {}", count, Thread.currentThread().getName(), user);
             count++;
         } catch (Exception e) {
-            log.error("ERROR");
+            log.error("ERROR : {}", e.getMessage());
         }
     }
 }

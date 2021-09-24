@@ -19,11 +19,13 @@ public class RabbitMqController {
         this.rabbitMqService = rabbitMqService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/add-to-queue")
+    @RequestMapping(method = RequestMethod.POST, path = "/add-to-line")
     public void addToQueue(@RequestBody User user) {
+        long start = System.currentTimeMillis();
         for (int i = 0 ; i < 8 ; i++) {
-            log.info(Thread.currentThread().getName());
             this.rabbitMqService.addToQueue(user);
         }
+        long stop = System.currentTimeMillis();
+        log.info("TOTAL TIME OF WRITE MESSAGES TO QUEUE : {} MILLISECONDS", stop - start);
     }
 }
