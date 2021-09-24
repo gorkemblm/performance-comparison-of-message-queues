@@ -10,10 +10,19 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
 
     //SCENARIO 2 -> SYNC 1 TOPIC 4 PARTITION 4 CONSUMER CONFIG
-    @Bean
+    /*@Bean
     public NewTopic topicOfScenario() {
         return TopicBuilder.name("sync-one-topic-four-partition")
                 .partitions(4)
+                .config(TopicConfig.COMPRESSION_TYPE_CONFIG, "zstd")
+                .build();
+    }*/
+
+    //SCENARIO 3 -> SYNC 1 TOPIC 3 PARTITION 3 CONSUMER CONFIGS
+    @Bean
+    public NewTopic syncOneTopicThreePartition() {
+        return TopicBuilder.name("sync-one-topic-three-partition")
+                .partitions(3)
                 .config(TopicConfig.COMPRESSION_TYPE_CONFIG, "zstd")
                 .build();
     }
