@@ -29,9 +29,11 @@ public class RabbitMqService {
 
     @Async
     public void addToQueue(User user) {
+        long start = System.currentTimeMillis();
         for (int i = 1; i <= 750; i++) {
-            log.info(Thread.currentThread().getName());
             template.convertAndSend(exchange.getName(), user);
         }
+        long stop = System.currentTimeMillis();
+        log.info("THREAD NAME : {} TIME TAKEN FOR 750 MESSAGES IN RABBITMQ : {} MILLISECONDS", Thread.currentThread().getName(), stop - start);
     }
 }

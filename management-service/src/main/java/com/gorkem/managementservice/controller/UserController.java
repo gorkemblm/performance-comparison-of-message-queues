@@ -3,12 +3,11 @@ package com.gorkem.managementservice.controller;
 import com.gorkem.managementservice.model.User;
 import com.gorkem.managementservice.model.dto.UserDto;
 import com.gorkem.managementservice.service.UserService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/v1/users")
 public class UserController {
@@ -20,17 +19,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/add-user-w-rabbitmq")
-    public void addToRabbitMqQueue(@RequestBody UserDto userDto) {
+    @RequestMapping(method = RequestMethod.POST, path = "/add-user-w/{queueType}")
+    public void addToRabbitMqQueue(@PathVariable("queueType") String queueType, @RequestBody UserDto userDto) {
         try {
+            long start = System.currentTimeMillis();
+            String thePortNumber = this.userService.findThePortNumber(queueType);
+
             User user = this.userService.convertForAddToRabbitMqQueue(userDto);
 
             var result = restTemplate.postForObject(
-                    "http://localhost:8086/v1/rabbitmq/add-to-queue",
+                    "http://localhost:" + thePortNumber + "/v1/" + queueType + "/add-to-line",
                     user,
                     User.class
             );
-            if (result == null) {
+            long stop = System.currentTimeMillis();
+            log.info("TOTAL TIME THE DATA WAS WRITTEN : {} MILLISECONDS", stop-start);
+            if (thePortNumber.equals("")) {
                 throw new Exception();
             }
         } catch (Exception e) {
